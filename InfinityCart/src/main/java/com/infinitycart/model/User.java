@@ -25,6 +25,8 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    private String email;
+
     private String fullName;
 
     private String mobile;
@@ -37,4 +39,6 @@ public class User {
     @JsonIgnore
     @ManyToMany
     private Set<Coupon> usedCoupons = new HashSet<>();
+
+
 }
