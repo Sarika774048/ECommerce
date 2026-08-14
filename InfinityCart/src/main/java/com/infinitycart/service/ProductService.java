@@ -12,9 +12,9 @@ import java.util.List;
 public interface ProductService {
     Product createProduct(CreateProductRequest req, Seller seller);
     void deleteProduct(Long productId);
-    Product updateProduct(Long productId, Product product);
-    Product findProductById(Long productId);
-    List<Product> searchProducts();
+    Product updateProduct(Long productId, Product product) throws Exception;
+    Product findProductById(Long productId) throws Exception;
+    List<Product> searchProducts(String query);
     Page<Product> getAllProducts(
        String category,
        String brand,
