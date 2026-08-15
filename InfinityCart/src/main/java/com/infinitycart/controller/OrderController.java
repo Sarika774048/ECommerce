@@ -1,8 +1,7 @@
 package com.infinitycart.controller;
 
 import com.infinitycart.model.*;
-import com.infinitycart.service.OrderService;
-import com.infinitycart.service.UserService;
+import com.infinitycart.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,9 @@ public class OrderController {
 
     private final OrderService orderService;
     private final UserService userService;
-
+    private final SellerService sellerService;
+    private final CartService cartService;
+    private final SellerReportService sellerReportService;
 
     @PostMapping()
     public ResponseEntity<Set<Order>> createOrder(
@@ -97,6 +98,10 @@ public class OrderController {
         // Cancel the order
         orderService.cancelOrder(order.getId(), user);
 
+        Seller seller = sellerService.getSellerById(order.getSellerId());
+        SellerReport sellerReport = sellerReportService.getSellerReport(seller);
+        sellerReport.setCancelledOrders(sellerReport.getCancelledOrders() + 1);
+        sellerReportService.updateSellerReport(sellerReport);
         return new ResponseEntity<>(
                 orderItem,
                 HttpStatus.OK
