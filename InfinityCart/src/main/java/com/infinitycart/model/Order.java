@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Embeddable
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -55,4 +56,6 @@ public class Order {
     private LocalDate orderDate = LocalDate.now();
 
     private LocalDate deliverDate = orderDate.plusDays(7);
+
+
 }
